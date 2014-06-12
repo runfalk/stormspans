@@ -1,0 +1,3 @@
+recursive-include stormspans *.py
+
+include MANIFEST.in LICENSE README.rst Makefile setup.py
