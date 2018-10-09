@@ -143,7 +143,7 @@ class TestIntRangeDatabase(TestDatabase):
         ir = self.store.get(self.SimpleModel, 1)
 
         self.assertIsNot(ir, None)
-        self.assertEquals(ir.span, intrange(1, 5))
+        self.assertEqual(ir.span, intrange(1, 5))
 
     def test_default_insert(self):
         ir = self.SimpleModel()
@@ -151,7 +151,7 @@ class TestIntRangeDatabase(TestDatabase):
         self.store.commit()
         self.store.invalidate(ir)
 
-        self.assertEquals(ir.span, intrange(10, 15))
+        self.assertEqual(ir.span, intrange(10, 15))
 
     def test_insert(self):
         ir = self.SimpleModel(intrange(upper=10, lower_inc=False))
@@ -159,7 +159,7 @@ class TestIntRangeDatabase(TestDatabase):
         self.store.commit()
         self.store.invalidate(ir)
 
-        self.assertEquals(ir.span, intrange(upper=10, lower_inc=False))
+        self.assertEqual(ir.span, intrange(upper=10, lower_inc=False))
 
     def test_simple_functions(self):
         self.assertEqual(

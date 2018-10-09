@@ -1,0 +1,47 @@
+language: python
+cache: pip
+matrix:
+  include:
+    - python: 2.7
+      addons:
+        postgresql: 9.6
+        apt:
+          packages:
+            - postgresql-9.6
+            - postgresql-client-9.6
+            - postgresql-server-dev-9.6
+      env:
+        - PGPORT=5432
+        - STORM_PACKAGE=storm
+        - PSYCOPG2_PKG="psycopg2<2.5"
+    - python: 2.7
+      env: STORM_PACKAGE=storm-legacy
+    - python: 3.4
+      env: STORM_PACKAGE=storm-legacy
+    - python: 3.5
+      env: STORM_PACKAGE=storm-legacy
+    - python: 3.6
+      env: STORM_PACKAGE=storm-legacy
+    - python: 3.7
+      dist: xenial
+      sudo: true
+      env:
+        - STORM_PACKAGE=storm-legacy
+        - PGPORT=5432
+addons:
+  postgresql: 10
+  apt:
+    packages:
+      - postgresql-10
+      - postgresql-client-10
+env:
+  global:
+    - PGPORT=5433
+    - PSYCOPG2_PKG="psycopg2-binary"
+before_script:
+  - psql -c "ALTER USER travis WITH PASSWORD 'travis';"
+install:
+  - pip install -e .
+  - pip install pytest $PSYCOPG2_PKG $STORM_PACKAGE
+script:
+  - STORM_POSTGRES_URI="postgres+spans://travis:travis@localhost:$PGPORT/travis" pytest
