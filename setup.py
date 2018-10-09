@@ -11,7 +11,7 @@ with open("README.rst") as fp:
 
 setup(
     name="StormSpans",
-    version="0.1.0",
+    version="1.0.0",
     description=
         "PostgreSQL range type support for Canonical's Storm ORM using Spans ",
     long_description=long_desc,
